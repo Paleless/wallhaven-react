@@ -1,0 +1,25 @@
+.wrapper {
+    height: 100vh;
+    background-color: #000;
+}
+
+.box {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+
+    &_title {
+        line-height: 1;
+    }
+
+    &_input {
+        padding: 10px;
+        outline: none;
+        font-weight: bold;
+        width: 300px;
+        border-radius: 10px;
+        font-size: 25px;
+    }
+
+}

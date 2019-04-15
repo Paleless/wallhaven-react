@@ -4,10 +4,14 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "basscss": "^8.0.10",
+    "history": "^4.9.0",
     "ramda": "^0.26.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-redux": "^7.0.2",
+    "react-router": "^5.0.0",
+    "react-router-dom": "^5.0.0",
     "react-scripts": "2.1.8"
   },
   "scripts": {
@@ -25,6 +29,5 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }
