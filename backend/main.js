@@ -4,10 +4,6 @@ const wallheaven = require('./wallhaven.js')
 const app = express()
 
 app.use(cors())
-app.get('/', (req, resp) => {
-    resp.set("name", "pale")
-    resp.send("<h1>Hello world</h1>")
-})
 
 app.get('/search', async (req, resp) => {
     const data = await wallheaven.search('search', req.query)
