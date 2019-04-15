@@ -1,8 +1,12 @@
 import React from 'react'
-
+import styles from './index.module.css'
 class Header extends React.Component {
     render() {
-        return <h1>header</h1>
+        return (
+            <header>
+                <nav></nav>
+            </header>
+        )
     }
 }
 

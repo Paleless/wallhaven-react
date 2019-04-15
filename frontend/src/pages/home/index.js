@@ -1,5 +1,5 @@
 import React from 'react'
-import './index.scss'
+import styles from './index.module.css'
 import history from 'utils/history.js'
 class Main extends React.Component {
     state = {
@@ -21,14 +21,14 @@ class Main extends React.Component {
 
     render() {
         return (
-            <div className='wrapper border relative'>
-            <div className="box absolute">
-                <h1 className='box_title'>Wall heaven</h1>
+            <div className={styles.wrapper}>
+            <div className={styles.box}>
+                <h1 className={styles.box_title}>Wall heaven</h1>
                 <input
                     onKeyPress={e => this.toImglist(e)}  
                     onChange={this.setQ} 
                     value={this.state.q} 
-                    className='box_input'/>
+                    className={styles.box_input}/>
             </div>
         </div>
         )

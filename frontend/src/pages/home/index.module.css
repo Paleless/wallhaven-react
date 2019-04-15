@@ -1,0 +1,26 @@
+.wrapper {
+    position: relative;
+    height: 100vh;
+    background-color: #000;
+}
+
+.box {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+}
+
+.box_title {
+    line-height: 1;
+}
+
+.box_input {
+    padding: 10px;
+    outline: none;
+    font-weight: bold;
+    width: 300px;
+    border-radius: 10px;
+    font-size: 25px;
+}

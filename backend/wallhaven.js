@@ -38,8 +38,8 @@ const search = async (topic = 'search', params = {}) => {
     const wallpapers = $('figure')
         .map((_, el) => {
             return {
-                detail_src: $(el).find('.preview').attr('href'),
-                perview_src: $(el).data('wallpaper-id')
+                preview_src: $(el).find('img').data('src'),
+                id: $(el).data('wallpaper-id')
             }
         })
         .toArray()
