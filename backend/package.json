@@ -1,13 +1,13 @@
 {
   "name": "wallheaven",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "api for wallheaven.cc",
+  "main": "main.js",
   "scripts": {
     "start": "nodemon main.js",
     "test": "jest"
   },
-  "author": "",
+  "author": "paleless",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.18.0",
