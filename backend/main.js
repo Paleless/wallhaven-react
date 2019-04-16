@@ -6,11 +6,11 @@ const app = express()
 app.use(cors())
 
 app.get('/search', async (req, resp) => {
-    const data = await wallheaven.search('search', req.query)
+    const data = await wallheaven.search('random', req.query || {})
     if (data.type === 'error') {
         resp.status(400)
     }
-    resp.json(data)
+    resp.json(data.data)
 })
 
 app.get('/wallpaper/:id', async (req, resp) => {
@@ -19,20 +19,29 @@ app.get('/wallpaper/:id', async (req, resp) => {
     if (data.type === 'error') {
         resp.status(400)
     }
-    resp.json(imageSrc)
+    resp.json(data.data)
+})
+
+app.get('/uploader', async (req, resp) => {
+    const uploader = req.query.uploader
+    const data = await wallheaven.searchByUploader(uploader)
+    if (data.type === 'error') {
+        resp.status(400)
+    }
+    resp.json(data.data)
 })
 
 //get options
 app.get('/options/topics', (req, res) => {
-    res.json(wallheaven.options.TOPICS)
+    res.json(wallheaven.OPTIONS.TOPICS)
 })
 
 app.get('/options/sorting', (req, res) => {
-    res.json(wallheaven.options.SORTING)
+    res.json(wallheaven.OPTIONS.SORTING)
 })
 
 app.get('/options/categories', (req, res) => {
-    res.json(wallheaven.options.CATEGORIES)
+    res.json(wallheaven.OPTIONS.CATEGORIES)
 })
 
 
