@@ -2,45 +2,35 @@ import React from 'react'
 import styles from './index.module.css'
 import * as api from 'api/index.js'
 // import history from 'utils/history.js'
-// import Header from './component/header/index.js'
+import Header from './component/header/index.js'
 class ImgList extends React.Component {
     state = {
-        q: '',
-        topics: [],
-        cat: [],
-        sorting: [],
         page_num: 1,
-        img_list: []
+        search_condition: {
+            q: '',
+            topic: 'toplist',
+            categories: [],
+            page: 2,
+            q: 'girl'
+        },
+        render_obj: {
+            wallpapers: [],
+            related_tags: [],
+            total_page: 0
+        }
     }
 
     getImageList() {
-        api.search({})
+        api.search(this.state.search_condition)
             .then(res => {
                 this.setState({
-                    img_list: res.data
+                    render_obj: res
                 })
             })
     }
 
+
     componentWillMount() {
-        api.getTopics()
-            .then((res) => {
-                this.setState({
-                    topics: res
-                })
-            })
-        api.getSorting()
-            .then((res) => {
-                this.setState({
-                    sorting: res
-                })
-            })
-        api.getCat()
-            .then((res) => {
-                this.setState({
-                    cat: res
-                })
-            })
         this.getImageList()
         this.setState({
             q: this.props.location.state
@@ -48,15 +38,19 @@ class ImgList extends React.Component {
     }
 
     render() {
+        const wallpapers = this.state.render_obj.wallpapers
         return (
-            <div className={[styles.wrapper,"border"].join(' ')}>
-                <nav>
-                    
-                </nav>
+            <div className={styles.wrapper}>
+                <Header></Header>
                 <div>
-                    <ul>
-                        {this.state.img_list.map(({preview_src, id})=>
-                            <img key={id} alt={id} src={preview_src}/>)}
+                    <ul className='flex flex-wrap justify-around'>
+                        {wallpapers.map(({preview_src, wallpaer_id, res})=>
+                            (<li key={preview_src} className={styles.preview}>
+                                <figure className='relative'>
+                                    <img className={styles.preview_img} alt={wallpaer_id} src={preview_src}/>
+                                    <span className={styles.preview_res}>{res}</span>
+                                </figure>
+                            </li>))}
                     </ul>
                 </div>
             </div>

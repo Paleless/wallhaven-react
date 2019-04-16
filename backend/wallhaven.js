@@ -90,28 +90,28 @@ return: {
     }]
 }
  */
-const search = (topic = 'random', options = {
-    q: '',
-    page: 1,
-    sorting: 'random',
-    order: 'desc',
-    categories: OPTIONS.CATEGORIES
+const search = (topic = 'random', {
+    q = '',
+    page = 1,
+    sorting = 'random',
+    order = 'desc',
+    categories = OPTIONS.CATEGORIES
 }) => {
-    if (!OPTIONS.TOPICS.includes(topic)) {
+    if (!(OPTIONS.TOPICS.includes(topic))) {
         return errorOf('topic not included')
     }
-    if (options.page < 1) {
-        return errorOf('page should be greater than 0')
-    }
-    if (!OPTIONS.SORTING.includes(options.sorting)) {
+    if (!(OPTIONS.SORTING.includes(sorting))) {
         return errorOf('sorting not included')
     }
-    const resolved_categories = resolveCategories(options.categories)
+    if (page < 1) {
+        return errorOf('page should be greater than 0')
+    }
+    const resolved_categories = resolveCategories(categories)
     const params = {
-        page: options.page,
-        sorting: options.sorting,
-        q: options.q,
-        order: options.order,
+        page,
+        sorting,
+        q,
+        order,
         categories: resolveCategories
     }
     return selector(`https://alpha.wallhaven.cc/${topic}`, params)

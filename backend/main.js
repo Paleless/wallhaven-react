@@ -5,12 +5,18 @@ const app = express()
 
 app.use(cors())
 
-app.get('/search', async (req, resp) => {
-    const data = await wallheaven.search('random', req.query || {})
-    if (data.type === 'error') {
-        resp.status(400)
-    }
-    resp.json(data.data)
+app.get('/search', (req, resp) => {
+    req.query = req.query || {}
+    wallheaven.search(req.query.topic || 'random', req.query)
+        .then(data => {
+            resp.json(data.data)
+        })
+        .catch(err => {
+            resp.status(400)
+            resp.json({
+                err
+            })
+        })
 })
 
 app.get('/wallpaper/:id', async (req, resp) => {

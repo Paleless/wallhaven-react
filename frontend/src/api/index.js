@@ -11,6 +11,14 @@ export const getDetail = id =>
         url: `wallpaper/${id}`,
     })
 
+export const searchByUploader = uploader =>
+    fetch({
+        url: "/uploader",
+        params: {
+            uploader
+        }
+    })
+
 export const getTopics = () =>
     fetch({
         url: 'options/topics',

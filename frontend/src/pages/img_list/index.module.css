@@ -1,2 +1,45 @@
-.wrapper{
+/* base */
+.small {
+    font-size: 10px;
+}
+
+.lh1{
+    line-height: 1.5;
+}
+
+/* layout */
+.wrapper {
+    min-height: 100vh;
+    background-color: #4e4e4e;
+    padding-top: 35px;
+}
+
+.header{
+    
+}
+
+.preview {
+    height: 200px;
+    width: 300px;
+    margin: 10px;
+    overflow: hidden;
+}
+
+.preview_res {
+    composes: small;
+    composes: lh1;
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    left: 50%;
+    bottom: -10%;
+    background-color: rgba(0, 0, 0, .3);
+    transform: translateX(-50%);
+    transition: bottom ease-in-out .2s;
+    color: #fff;
+    text-align: center;
+}
+
+.preview:hover .preview_res {
+    bottom: 0%;
 }

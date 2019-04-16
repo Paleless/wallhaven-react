@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import 'normalize.css'
 import 'styles/index.scss';
 import 'basscss/css/basscss.min.css'
 import Router from './router/index.js';
