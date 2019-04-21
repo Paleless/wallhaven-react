@@ -5,6 +5,29 @@ import Menu from 'components/menu/index.js'
 import Search from 'components/search/index.js'
 import MultipleCheckbox from 'components/multiple_checkbox/index.js'
 import DropDown from 'components/dropdown/index.js'
+import { SET_OPTION, SET_WALLPAPERS } from '../../../../store/wallpaper.js'
+import { connect } from 'react-redux'
+
+function mapStateToProps(state) {
+    return {
+        queryOption: state.queryOption
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        setWallPapers(options) {
+            api.search(options)
+                .then(res => {
+                    dispatch({ type: SET_WALLPAPERS, payload: res })
+                })
+        },
+        setQueryOption(option_part) {
+            dispatch({ type: SET_OPTION, payload: option_part })
+        }
+    }
+}
+
 class Header extends React.Component {
     state = {
         topics: [],
@@ -12,31 +35,30 @@ class Header extends React.Component {
         sorting: []
     }
 
+    componentWillMount() {
+        this.fillOptions()
+    }
+
     fillOptions = () => {
         const normalize = xs => xs.map(v => ({ label: v, value: v }))
-        api.getTopics()
-            .then((res) => {
+        const options = { topics: api.getTopics, cat: api.getCat, sorting: api.getSorting }
+        Promise
+            .all(Object.entries(options).map(([key, fn]) =>
+                fn().then(res => ({
+                    [key]: normalize(res)
+                }))
+            ))
+            .then(values => {
+                const tempState = values.reduce((accu, obj) => ({ ...accu, ...obj }), {})
                 this.setState({
-                    topics: res
-                })
-            })
-        api.getSorting()
-            .then((res) => {
-                this.setState({
-                    sorting: normalize(res)
-                })
-            })
-        api.getCat()
-            .then((res) => {
-                this.setState({
-                    cat: normalize(res)
+                    ...tempState
                 })
             })
     }
 
 
     catSelectHandler = (v) => {
-        console.log(v)
+        this.props.setQueryOption({ categories: v })
     }
 
     dropdownSelectHandler = (v) => {
@@ -44,27 +66,35 @@ class Header extends React.Component {
     }
 
     onMenuClick = (v) => {
-        console.log(v)
+        this.props.setQueryOption({ topic: v })
+        this.search()
     }
 
-    componentWillMount() {
-        this.fillOptions()
+
+    setQ = (text) => {
+        this.props.setQueryOption({ q: text })
+    }
+
+    search = () => {
+        const queryOption = this.props.queryOption
+        this.props.setWallPapers(queryOption)
     }
 
     render() {
-        const menu_items = this.state.topics.map(v => ({ label: v, value: v }))
+        const { topics, cat, sorting } = this.state
+        console.log('parent rendered', cat)
         return (
             <header className={[styles.header, this.props.custom_class||''].join(' ')}>
-                <Menu onMenuClick={this.onMenuClick} menu_items={menu_items}/>
-                <MultipleCheckbox onSelect={this.catSelectHandler} options={this.state.cat} />
-                <DropDown custom_class='ml2' selectHanlder={this.dropdownSelectHandler} options={this.state.sorting}/>
+                <Menu onMenuClick={this.onMenuClick} menu_items={topics}/>
+                <MultipleCheckbox onSelect={this.catSelectHandler} options={cat} />
+                <DropDown custom_class='ml2' selectHanlder={this.dropdownSelectHandler} options={sorting}/>
                 <div className='flex'>
-                    <Search className={styles.search}/>
-                    <button className={styles.refresh_btn}>search</button>
+                    <Search changeHandler={this.setQ} enterHandler={this.search} className={styles.search}/>
+                    <button onClick={this.search} className={styles.refresh_btn}>search</button>
                 </div>
             </header>
         )
     }
 }
 
-export default Header
+export default connect(mapStateToProps, mapDispatchToProps)(Header)

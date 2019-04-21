@@ -3,6 +3,7 @@ import styles from './index.module.css'
 
 /*
 props:
+    options
     enterHandler
     changeHandler
  */

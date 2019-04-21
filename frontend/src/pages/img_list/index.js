@@ -1,47 +1,45 @@
 import React from 'react'
 import styles from './index.module.css'
 import * as api from 'api/index.js'
-// import history from 'utils/history.js'
 import Header from './component/header/index.js'
+import { connect } from 'react-redux'
+import { APPEND_WALLPAPERS, SET_WALLPAPERS, SET_OPTION } from '../../store/wallpaper.js'
+
+function mapStateToProps(state) {
+    return {
+        wallpaper: state.wallpaper,
+        queryOption: state.queryOption
+    }
+}
+
+function mapDispatchToProps(dispatch, props) {
+    return {
+        setImageList(options) {
+            api.search(options)
+                .then(res => {
+                    dispatch({ type: SET_WALLPAPERS, payload: res })
+                })
+        },
+        setOption(obj_part) {
+            dispatch({ type: SET_OPTION, payload: obj_part })
+        }
+    }
+}
 class ImgList extends React.Component {
     state = {
         page_num: 1,
-        search_condition: {
-            q: '',
-            topic: 'toplist',
-            categories: [],
-            page: 1,
-            q: 'girl'
-        },
-        render_obj: {
-            wallpapers: [],
-            related_tags: [],
-            total_page: 0
-        }
     }
-
-    getImageList = (option) => {
-        api.search(this.state.search_condition)
-            .then(res => {
-                this.setState({
-                    render_obj: res
-                })
-            })
-    }
-
 
     componentWillMount() {
-        this.getImageList()
-        this.setState({
-            q: this.props.location.state
-        })
+        this.props.setImageList(this.props.queryOption)
+        this.props.setOption({ q: this.props.location.state })
     }
 
     render() {
-        const wallpapers = this.state.render_obj.wallpapers
+        const wallpapers = this.props.wallpaper.wallpapers || []
         return (
             <div className={styles.wrapper}>
-                <Header search={this.getImageList} custom_class={styles.header}/>
+                <Header custom_class={styles.header}/>
                 <div>
                     <ul className='flex flex-wrap justify-around'>
                         {wallpapers.map(({preview_src, wallpaer_id, res})=>
@@ -58,4 +56,4 @@ class ImgList extends React.Component {
     }
 }
 
-export default ImgList
+export default connect(mapStateToProps, mapDispatchToProps)(ImgList)
