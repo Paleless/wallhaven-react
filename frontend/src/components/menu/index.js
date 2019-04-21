@@ -20,7 +20,7 @@ export default class Menu extends React.Component {
         const menu_items = this.props.menu_items || []
         const active_index = this.state.active_index
         return (
-            <ul className={styles.menu}>
+            <ul className={[styles.menu, this.props.custom_class||''].join(' ')}>
                 {menu_items.map(({label, value}, index)=>(
                     <li onClick={()=>this.onMenuClick(value, index)} className={[
                         styles.menu_item, 

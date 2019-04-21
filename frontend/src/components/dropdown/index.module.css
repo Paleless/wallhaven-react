@@ -1,0 +1,29 @@
+.wrapper {
+}
+
+.chosed_box {
+    padding: 5px;
+    color: #fff;
+    user-select: none;
+    width: 60px;
+    overflow: hidden;
+    border: 1px solid #c3c3c3;
+    text-align: center;
+}
+
+.option_wrapper {
+    position: absolute;
+    z-index: 2;
+    background-color: #fff;
+    height: 0;
+    overflow: hidden;
+}
+
+.option_wrapper_active {
+    height: auto;
+}
+
+.option_box {
+    padding: 5px;
+    user-select: none;
+}

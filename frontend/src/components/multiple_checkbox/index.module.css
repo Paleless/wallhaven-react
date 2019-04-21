@@ -1,0 +1,15 @@
+.wrapper {
+    display: flex;
+}
+
+.box {
+    padding: 5px;
+    background-color: #183661;
+    user-select: none;
+    color: #DAE1E7;
+    transition: background-color .2s;
+}
+
+.box_active {
+    background-color: #1C4B82;
+}

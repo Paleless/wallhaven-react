@@ -1,10 +1,7 @@
 .header {
     padding: 5px;
     background-color: #1c4b82;
-    position: fixed;
-    top: 0;
     width: 100%;
-    z-index: 2;
     display: flex;
     align-items: center;
     align-content: flex-start;
@@ -12,4 +9,17 @@
 }
 
 .search {
+}
+
+
+.refresh_btn {
+    outline: none;
+    color: #DAE1E7;
+    border: 1px solid #DAE1E7;
+    background-color: transparent;
+}
+
+.refresh_btn:hover{
+    color: #1c4b82;
+    background-color: #DAE1E7;
 }

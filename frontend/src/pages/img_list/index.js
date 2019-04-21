@@ -10,7 +10,7 @@ class ImgList extends React.Component {
             q: '',
             topic: 'toplist',
             categories: [],
-            page: 2,
+            page: 1,
             q: 'girl'
         },
         render_obj: {
@@ -20,7 +20,7 @@ class ImgList extends React.Component {
         }
     }
 
-    getImageList() {
+    getImageList = (option) => {
         api.search(this.state.search_condition)
             .then(res => {
                 this.setState({
@@ -41,7 +41,7 @@ class ImgList extends React.Component {
         const wallpapers = this.state.render_obj.wallpapers
         return (
             <div className={styles.wrapper}>
-                <Header></Header>
+                <Header search={this.getImageList} custom_class={styles.header}/>
                 <div>
                     <ul className='flex flex-wrap justify-around'>
                         {wallpapers.map(({preview_src, wallpaer_id, res})=>

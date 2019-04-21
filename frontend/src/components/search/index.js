@@ -39,7 +39,7 @@ export default class Search extends React.Component {
 
     render() {
         return (
-            <div className={[styles.wrapper, this.props.className||''].join(' ')}>
+            <div className={[styles.wrapper, this.props.custom_class||''].join(' ')}>
                 <input 
                     placeholder={this.props.placeholder}
                     value={this.state.text}
