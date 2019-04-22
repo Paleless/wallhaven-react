@@ -13,9 +13,11 @@ export default class DropDown extends React.Component {
         visible: false
     }
 
-    componentWillMount() {
+    componentWillMount() {}
+
+    componentWillReceiveProps(nextProps) {
         this.setState({
-            options: this.props.options || []
+            options: nextProps.options || []
         })
     }
 
@@ -29,10 +31,11 @@ export default class DropDown extends React.Component {
         this.toggleVisible()
         this.setState({
             activited: option.label
+        }, () => {
+            if (this.props.selectHandler) {
+                this.props.selectHandler(option.value)
+            }
         })
-        if(this.props.selectHandler){
-            this.props.selectHandler(option.value)
-        }
     }
 
     render() {
@@ -40,7 +43,7 @@ export default class DropDown extends React.Component {
         const visible = this.state.visible
         return (
             <div className={[styles.wrapper, this.props.custom_class||''].join(' ')}>
-                <div onClick={this.toggleVisible} className={styles.chosed_box}>{this.state.activited||'select'}</div>
+                <div onClick={this.toggleVisible} className={[styles.chosed_box, !visible?styles.chosed_box_active:''].join(' ')}>{this.state.activited||'select'}</div>
                 <ul className={[styles.option_wrapper, visible?styles.option_wrapper_active:''].join(' ')}>
                     {options.map(option=>(
                         <li onClick={()=>this.setActivited(option)} key={option.value} className={styles.option_box}>{option.label}</li>))}

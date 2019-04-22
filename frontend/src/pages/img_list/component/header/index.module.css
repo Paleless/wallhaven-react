@@ -1,5 +1,5 @@
 .header {
-    padding: 5px;
+    padding: 5px 30px;
     background-color: #1c4b82;
     width: 100%;
     display: flex;
@@ -8,7 +8,17 @@
     justify-content: space-around;
 }
 
+.mul{
+    margin-left: 20px;
+    margin-right: 30px;
+}
+
+.dropdown{
+    width: 100px;
+}
+
 .search {
+    display: flex;
 }
 
 
@@ -19,7 +29,7 @@
     background-color: transparent;
 }
 
-.refresh_btn:hover{
+.refresh_btn:hover {
     color: #1c4b82;
     background-color: #DAE1E7;
 }

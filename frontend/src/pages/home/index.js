@@ -1,6 +1,5 @@
 import React from 'react'
 import styles from './index.module.css'
-import history from 'utils/history.js'
 
 function setBg() {
     const canvas = document.querySelector('canvas')
@@ -80,6 +79,7 @@ class Main extends React.Component {
     toImglist = (e) => {
         const is_enter = e.key === 'Enter'
         if (is_enter) {
+            const history = this.props.history
             history.push('list', { q: this.state.q })
         }
     }
@@ -91,7 +91,7 @@ class Main extends React.Component {
     }
 
     componentDidMount() {
-        setBg()
+        // setBg()
     }
 
     render() {

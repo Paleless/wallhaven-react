@@ -21,11 +21,17 @@ app.get('/search', (req, resp) => {
 
 app.get('/wallpaper/:id', async (req, resp) => {
     const id = req.params.id
-    const data = wallheaven.detailImage(id)
-    if (data.type === 'error') {
-        resp.status(400)
-    }
-    resp.json(data.data)
+    wallheaven.detailImage(id)
+        .then(res => {
+            if (res.type === 'error') {
+                resp.status(400)
+            }
+            resp.json(res.data)
+        })
+        .catch(err => {
+            resp.status(400)
+            resp.json({ err })
+        })
 })
 
 app.get('/uploader', async (req, resp) => {
@@ -48,6 +54,15 @@ app.get('/options/sorting', (req, res) => {
 
 app.get('/options/categories', (req, res) => {
     res.json(wallheaven.OPTIONS.CATEGORIES)
+})
+
+app.use((req, res, next) => {
+    res.send('404')
+    next()
+})
+
+app.use((err, req, res) => {
+    res.json('500')
 })
 
 

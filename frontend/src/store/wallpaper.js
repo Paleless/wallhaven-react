@@ -7,13 +7,11 @@ export function queryOption(state = {
     categories: [],
     page: 1,
     q: ''
-}, action) {
-    switch (action.type) {
+}, {type, payload}) {
+    switch (type) {
         case SET_OPTION:
-            return {
-                ...state,
-                ...action.payload
-            }
+            console.log({...state, ...payload})
+            return {...state, ...payload}
         default:
             return state
     }
@@ -28,7 +26,7 @@ export function wallpaper(state = {
         case APPEND_WALLPAPERS:
             return {
                 ...state,
-                ...action.payload
+                wallpapers: [...state.wallpapers, ...action.payload.wallpapers]
             }
         default:
             return state

@@ -34,6 +34,8 @@ export default class Search extends React.Component {
         this.setState({
             text: '',
             can_canel: false
+        }, () => {
+            this.props.changeHandler('')
         })
     }
 

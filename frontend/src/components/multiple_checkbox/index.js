@@ -11,9 +11,12 @@ export default class MultipleCheckbox extends React.Component {
     }
 
     componentWillMount() {
-        console.log('child rendered',this.props.options)
+    }
+
+
+    componentWillReceiveProps(nextProps) {
         this.setState({
-            options: this.props.options
+            options: nextProps.options
         })
     }
 

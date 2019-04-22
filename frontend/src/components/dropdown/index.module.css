@@ -1,26 +1,43 @@
 .wrapper {
+    position: relative;
 }
 
 .chosed_box {
     padding: 5px;
     color: #fff;
     user-select: none;
-    width: 60px;
     overflow: hidden;
     border: 1px solid #c3c3c3;
     text-align: center;
+    cursor: pointer;
+    transform: scaleX(0);
+}
+
+.chosed_box:hover{
+    background-color: #c3c3c3;
+    color: #333;
+}
+
+.chosed_box_active{
+    transform: scaleX(1);
 }
 
 .option_wrapper {
+    display: flex;
     position: absolute;
+    border: 1px solid #c3c3c3;
+    color: #fff;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%) scaleX(0); 
     z-index: 2;
-    background-color: #fff;
-    height: 0;
     overflow: hidden;
+    color: #c3c3c3;
+    transition: transform .3s ease-out;
 }
 
 .option_wrapper_active {
-    height: auto;
+    transform: translateX(-50%) scaleX(1); 
 }
 
 .option_box {

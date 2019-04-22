@@ -24,7 +24,7 @@
     left: 50%;
     bottom: 3px;
     width: 20%;
-    border-bottom: 3px solid red;
+    border-bottom: 3px solid #FF4057;
     transform: translateX(-400%);
     transition: width .5s .2s, transform .4s;
 }
@@ -42,7 +42,7 @@
     right: 0;
     transform: translateY(-50%);
     height: 50%;
-    border-right: 1px solid #000;
+    border-right: 2px solid #DAE1E7;
 }
 
 .menu_item:last-of-type::after {

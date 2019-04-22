@@ -40,7 +40,7 @@ class Header extends React.Component {
     }
 
     fillOptions = () => {
-        const normalize = xs => xs.map(v => ({ label: v, value: v }))
+        const normalize = xs => xs.map(v => ({ label: v, value: v, activited: true }))
         const options = { topics: api.getTopics, cat: api.getCat, sorting: api.getSorting }
         Promise
             .all(Object.entries(options).map(([key, fn]) =>
@@ -62,11 +62,11 @@ class Header extends React.Component {
     }
 
     dropdownSelectHandler = (v) => {
-        console.log(v)
+        this.props.setQueryOption({ sorting: v })
     }
 
     onMenuClick = (v) => {
-        this.props.setQueryOption({ topic: v })
+        this.props.setQueryOption({ topic: v, q: '' })
         this.search()
     }
 
@@ -76,20 +76,20 @@ class Header extends React.Component {
     }
 
     search = () => {
-        const queryOption = this.props.queryOption
-        this.props.setWallPapers(queryOption)
+        const { queryOption, setQueryOption } = this.props
+        setQueryOption({ page: 1 })
+        this.props.setWallPapers({ ...queryOption, page: 1 })
     }
 
     render() {
         const { topics, cat, sorting } = this.state
-        console.log('parent rendered', cat)
         return (
             <header className={[styles.header, this.props.custom_class||''].join(' ')}>
-                <Menu onMenuClick={this.onMenuClick} menu_items={topics}/>
-                <MultipleCheckbox onSelect={this.catSelectHandler} options={cat} />
-                <DropDown custom_class='ml2' selectHanlder={this.dropdownSelectHandler} options={sorting}/>
-                <div className='flex'>
-                    <Search changeHandler={this.setQ} enterHandler={this.search} className={styles.search}/>
+                <Menu custom_class={styles.menu} onMenuClick={this.onMenuClick} menu_items={topics}/>
+                <MultipleCheckbox custom_class={styles.mul} onSelect={this.catSelectHandler} options={cat} />
+                <DropDown custom_class={styles.dropdown} selectHandler={this.dropdownSelectHandler} options={sorting}/>
+                <div className={styles.search}>
+                    <Search placeholder="" changeHandler={this.setQ} enterHandler={this.search}/>
                     <button onClick={this.search} className={styles.refresh_btn}>search</button>
                 </div>
             </header>

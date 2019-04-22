@@ -1,0 +1,38 @@
+.wrapper {
+    background-color: #183661;
+    padding: 10px 10%;
+    min-width: 1000px;
+    min-height: 100vh;
+}
+
+.wallpaper {
+    width: 100%;
+    display: block;
+}
+
+.info{
+    margin-top: 5px;
+    text-align: right;    
+}
+
+.btn_download {
+    outline: none;
+    color: #DAE1E7;
+    border: 1px solid #DAE1E7;
+    background-color: transparent;
+}
+
+.btn_download:hover {
+    color: #1c4b82;
+    background-color: #DAE1E7;
+}
+
+.author{
+    margin-right: 20px;
+    color: #DAE1E7;
+    cursor: pointer;
+}
+
+.author:hover{
+    text-decoration: underline;
+}
